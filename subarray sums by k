@@ -1,0 +1,21 @@
+//Input: nums = [4,5,0,-2,-3,1], k = 5
+//Output: 7
+//Explanation: There are 7 subarrays with a sum divisible by k = 5:
+//[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+
+
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        vector<int> counts(k,0);
+        int  sum = 0 ;
+        for( int i: nums){                                     
+            sum += (i%k + k)%k;
+            counts[sum % k]++;
+        }  
+        int res = counts[0];
+        for(int c: counts)
+            res += (c*(c-1))/2;
+        return res;
+    }
+};
